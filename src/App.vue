@@ -1,12 +1,29 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <v-app>
+    <Navbar />
+    <v-main>
+      <v-slide-y-transition mode="out-in">
+        <router-view />
+      </v-slide-y-transition>
+    </v-main>
+  </v-app>
 </template>
+
+<script>
+import Navbar from './components/Navbar.vue'
+
+export default {
+  name: "app",
+  components: { 
+    Navbar
+  },
+  data: function(){
+    return {
+     
+    }
+  },
+};
+</script>
 
 <style lang="scss">
 #app {
