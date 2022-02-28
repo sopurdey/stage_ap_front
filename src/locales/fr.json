@@ -3,7 +3,34 @@
   "app": {
     "title": "Gestion de transport entreprise"
   },
+  "btn": {
+    "add": "Ajouter",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "refresh": "Rafraîchir",
+    "save": "Enregistrer",
+    "ok": "Ok"
+  },
+  "label": {
+    "actions": "Actions"
+  },
+  "carshare": {
+    "title": "Covoiturage"
+  },
   "home": {
     "title": "Accueil"
+  },
+  "vehicle": {
+    "title": "Véhicules",
+    "table-title": "Liste de véhicules de service",
+    "form-title": "Modifier une entrée",
+    "brand": "Marque",
+    "category": "Catégorie",
+    "model": "Modèle",
+    "numberPlate": "Immatriculation",
+    "seats": "Places",
+    "status": "Statut",
+    "photo": "Photo"
   }
 }

@@ -33,10 +33,8 @@ export default {
   data() {
     return {
       items: [
-        { icon: "mdi-home-outline",
-        text_key: "home.title",
-        action: "/" 
-        },
+        { icon: "mdi-home-outline", text_key: "home.title", action: "/" },
+        { icon: "mdi-home-outline", text_key: "vehicle.title", action: "/vehicles" },
       ],
     };
   },

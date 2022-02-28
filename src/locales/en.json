@@ -3,7 +3,34 @@
   "app": {
     "title": "Company Transport Management"
   },
+  "btn": {
+    "add": "Add",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "refresh": "Refresh",
+    "save": "Save",
+    "ok": "Ok"
+  },
+  "label": {
+    "actions": "Actions"
+  },
+  "carshare": {
+    "title": "Carshare"
+  },
   "home": {
     "title": "Home"
+  },
+  "vehicle": {
+    "title": "Vehicles",
+    "table-title": "List of company vehicles",
+    "form-title": "Edit an entry",
+    "brand": "Brand",
+    "category": "Catgory",
+    "model": "Model",
+    "numberPlate": "Number Plate",
+    "seats": "Seats",
+    "status": "Status",
+    "photo": "Photo"
   }
 }

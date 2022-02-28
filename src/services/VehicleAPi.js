@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const url = "http://localhost:8290/api";
+const url = "http://localhost:8290/api/vehicle";
 
-export default class ServiceApi {
+export default class VehicleApi {
   static getAll() {
     return axios.get(url + "/all");
   }
