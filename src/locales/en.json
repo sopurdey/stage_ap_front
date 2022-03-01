@@ -12,6 +12,9 @@
     "save": "Save",
     "ok": "Ok"
   },
+  "form": {
+    "confirm-del": "Are you sure you want to delete this item?"
+  },
   "label": {
     "actions": "Actions"
   },
@@ -20,6 +23,16 @@
   },
   "home": {
     "title": "Home"
+  },
+  "reservation": {
+    "title": "Reservations",
+    "table-title": "List of vehicle reservations",
+    "form-title": "Edit an entry",
+    "startTime": "Start",
+    "endTime": "End",
+    "withDriver": "With Driver",
+    "user": "Reserved by",
+    "vehicle": "Vehicle"
   },
   "vehicle": {
     "title": "Vehicles",

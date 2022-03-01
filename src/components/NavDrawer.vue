@@ -34,7 +34,8 @@ export default {
     return {
       items: [
         { icon: "mdi-home-outline", text_key: "home.title", action: "/" },
-        { icon: "mdi-home-outline", text_key: "vehicle.title", action: "/vehicles" },
+        { icon: "mdi-train-car", text_key: "vehicle.title", action: "/vehicles" },
+        { icon: "mdi-text-box-check-outline", text_key: "reservation.title", action: "/reservations" },
       ],
     };
   },

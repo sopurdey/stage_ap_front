@@ -12,6 +12,9 @@
     "save": "Enregistrer",
     "ok": "Ok"
   },
+  "form": {
+    "confirm-del": "Voulez-vous vraiment supprimer cette entrée ?"
+  },
   "label": {
     "actions": "Actions"
   },
@@ -20,6 +23,16 @@
   },
   "home": {
     "title": "Accueil"
+  },
+  "reservation": {
+    "title": "Réservations",
+    "table-title": "Liste de réservations de véhicules",
+    "form-title": "Modifier une entrée",
+    "startTime": "À partir de",
+    "endTime": "Jusqu'à",
+    "withDriver": "Avec conducteur",
+    "user": "Réservé par",
+    "vehicle": "Véhicule"
   },
   "vehicle": {
     "title": "Véhicules",
