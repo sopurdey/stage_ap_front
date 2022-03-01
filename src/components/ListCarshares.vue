@@ -2,19 +2,19 @@
   <div>
     <v-data-table
       :headers="headers"
-      :items="vehicles"
+      :items="carshares"
       :items-per-page="5"
       class="elevation-1"
     >
       <template v-slot:top>
         <v-toolbar flat>
-          <v-toolbar-title>{{ $t("vehicle.table-title") }}</v-toolbar-title>
+          <v-toolbar-title>{{ $t("carshare.table-title") }}</v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
           <v-dialog v-model="dialog" max-width="500px">
             <v-card>
               <v-card-title>
-                <span class="text-h5">{{ $t("vehicle.form-title") }}</span>
+                <span class="text-h5">{{ $t("carshare.form-title") }}</span>
               </v-card-title>
 
               <v-card-text>
@@ -22,40 +22,30 @@
                   <v-row>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.numberPlate"
+                        v-model="editedItem.startTime"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
-                      <v-text-field v-model="editedItem.brand"></v-text-field>
+                      <v-text-field v-model="editedItem.arrivalTime"></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.model"
-                        label="Model"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.category"
-                        label="Category"
+                        v-model="editedItem.fromAddress"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.nbSeats"
-                        label="Seats"
+                        v-model="editedItem.toAddress"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.status"
-                        label="Status"
+                        v-model="editedItem.nbSpaces"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.photoUrl"
-                        label="Photo"
+                        v-model="editedItem.participants"
                       ></v-text-field>
                     </v-col>
                   </v-row>
@@ -115,53 +105,64 @@
 </template>
 
 <script>
-import VehicleApi from "../services/VehicleAPi";
+import CarshareApi from "../services/CarshareApi";
 
 export default {
-  name: "ListVehicles",
+  name: "ListCarshares",
   data() {
     return {
-      vehicles: this.getVehicles(),
+      carshares: this.getCarshares(),
       currentItem: {},
       dialog: false,
       dialogDelete: false,
       defaultItem: {
-        numberPlate: "",
-        brand: "",
-        model: "",
-        category: "",
-        nbSeats: 0,
-        status: "",
-        photoUrl: "",
-        reservations: [],
+        startTime: "",
+        arrivalTime: "",
+        fromAddress: "",
+        toAddress: "",
+        nbSpaces: 0,
+        participants: [],
       },
       editedIndex: -1,
       editedItem: {
-        numberPlate: "",
-        brand: "",
-        model: "",
-        category: "",
-        nbSeats: 0,
-        status: "",
-        photoUrl: "",
-        reservations: [],
+        startTime: "",
+        arrivalTime: "",
+        fromAddress: "",
+        toAddress: "",
+        nbSpaces: 0,
+        participants: [],
       },
       headers: [
         {
-          text: this.$t("vehicle.numberPlate"),
+          text: this.$t("carshare.startTime"),
           align: "center",
-          value: "numberPlate",
+          value: "startTime",
         },
-        { text: this.$t("vehicle.brand"), align: "center", value: "brand" },
-        { text: this.$t("vehicle.model"), align: "center", value: "model" },
         {
-          text: this.$t("vehicle.category"),
+          text: this.$t("carshare.arrivalTime"),
           align: "center",
-          value: "category",
+          value: "arrivalTime",
         },
-        { text: this.$t("vehicle.seats"), align: "center", value: "nbSeats" },
-        { text: this.$t("vehicle.status"), align: "center", value: "status" },
-        { text: this.$t("vehicle.photo"), align: "center", value: "photoUrl" },
+        {
+          text: this.$t("carshare.fromAddress"),
+          align: "center",
+          value: "fromAddress",
+        },
+        {
+          text: this.$t("carshare.toAddress"),
+          align: "center",
+          value: "toAddress",
+        },
+        {
+          text: this.$t("carshare.nbSpaces"),
+          align: "center",
+          value: "nbSpaces",
+        },
+        {
+          text: this.$t("carshare.participants"),
+          align: "center",
+          value: "participants",
+        },
         {
           text: this.$t("label.actions"),
           align: "center",
@@ -172,31 +173,29 @@ export default {
     };
   },
   methods: {
-    getVehicles() {
-      let vehicles = [];
-      VehicleApi.getAll().then((response) => {
+    getCarshares() {
+      let carshares = [];
+      CarshareApi.getAll().then((response) => {
         let data = response.data;
         for (let el of data) {
-          vehicles.push({
+          carshares.push({
             id: el.id,
-            numberPlate: el.numberPlate,
-            brand: el.brand,
-            model: el.model,
-            category: el.category,
-            nbSeats: el.nbSeats,
-            status: el.status,
-            photoUrl: el.photoUrl,
-            reservations: el.reservations,
+            startTime: el.startTime,
+            arrivalTime: el.arrivalTime,
+            fromAddress: el.fromAddress,
+            toAddress: el.toAddress,
+            nbSpaces: el.nbSpaces,
+            participants: el.participants,
           });
-          this.vehicles = vehicles;
+          this.carshares = carshares;
         }
       });
     },
     refresh() {
-      VehicleApi.getAll()
+      CarshareApi.getAll()
         .then(
           (response) => {
-            this.vehicles = response.data;
+            this.carshares = response.data;
           },
           (errorlocale) => console.log(errorlocale),
           () => console.log("Finally")
@@ -205,31 +204,31 @@ export default {
     },
     editItem(item) {
       console.log("item to edit : " + item.id);
-      this.editedIndex = this.vehicles.indexOf(item);
+      this.editedIndex = this.carshares.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
     updateRecord(item) {
       console.log("item in update : " + item);
       console.log("id in update : " + item.id);
-      VehicleApi.update(item.id, item);
+      CarshareApi.update(item.id, item);
       this.refresh();
     },
     deleteItem(item) {
-      this.editedIndex = this.vehicles.indexOf(item);
+      this.editedIndex = this.carshares.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.currentItem = item;
       console.log("id à supprimer : " + item.id);
       this.dialogDelete = true;
     },
     deleteItemConfirm() {
-      this.vehicles.splice(this.vehicles, 1);
+      this.carshares.splice(this.carshares, 1);
       this.deleteRecord();
       this.closeDelete();
     },
 
     deleteRecord() {
-      VehicleApi.delete(this.currentItem.id);
+      CarshareApi.delete(this.currentItem.id);
       console.log("id supprimé : " + this.currentItem.id);
       this.currentItem = {};
     },
@@ -251,14 +250,14 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.vehicles[this.editedIndex], this.editedItem);
+        Object.assign(this.carshares[this.editedIndex], this.editedItem);
         console.log("id in save : " + this.editedItem.id);
         this.updateRecord(this.editedItem);
         this.refresh();
       } else {
         console.log("id in save ELSE : " + this.editedItem.id);
         this.updateRecord(this.editedItem);
-        this.vehicles.push(this.editedItem);
+        this.carshares.push(this.editedItem);
       }
       this.close();
     },

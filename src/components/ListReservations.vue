@@ -201,15 +201,16 @@ export default {
         .catch((errorgeneral) => console.log(errorgeneral));
     },
     editItem(item) {
+      console.log("item to edit : " + item.id);
       this.editedIndex = this.reservations.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
-    updateRecord(id, item) {
-      console.log(item);
-      ReservationApi.update(id, item);
-      console.log(item);
-      this.getReservations();
+    updateRecord(item) {
+      console.log("item in update : " + item);
+      console.log("id in update : " + item.id);
+      ReservationApi.update(item.id, item);
+      this.refresh();
     },
     deleteItem(item) {
       this.editedIndex = this.reservations.indexOf(item);

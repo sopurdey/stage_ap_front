@@ -18,11 +18,19 @@
   "label": {
     "actions": "Actions"
   },
-  "carshare": {
-    "title": "Covoiturage"
-  },
   "home": {
     "title": "Accueil"
+  },
+  "carshare": {
+    "title": "Covoiturages",
+    "table-title": "Liste de covoiturages",
+    "form-title": "Modifier une entrée",
+    "startTime": "Départ",
+    "arrivalTime": "Arrivée",
+    "fromAddress": "De",
+    "toAddress": "À",
+    "nbSpaces": "Places",
+    "participants": "Participants"
   },
   "reservation": {
     "title": "Réservations",

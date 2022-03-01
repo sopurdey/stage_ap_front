@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1>{{ $t("reservation.title") }}</h1>
       <ListReservations />
   </div>
 </template>

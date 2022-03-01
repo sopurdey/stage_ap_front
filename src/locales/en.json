@@ -18,11 +18,19 @@
   "label": {
     "actions": "Actions"
   },
-  "carshare": {
-    "title": "Carshare"
-  },
   "home": {
     "title": "Home"
+  },
+  "carshare": {
+    "title": "Carshares",
+    "table-title": "List of Carshares",
+    "form-title": "Edit an entry",
+    "startTime": "Start",
+    "arrivalTime": "Arrival",
+    "fromAddress": "From",
+    "toAddress": "To",
+    "nbSpaces": "Spaces",
+    "participants": "Participants"
   },
   "reservation": {
     "title": "Reservations",

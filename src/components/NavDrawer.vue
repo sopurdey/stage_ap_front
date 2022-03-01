@@ -36,6 +36,7 @@ export default {
         { icon: "mdi-home-outline", text_key: "home.title", action: "/" },
         { icon: "mdi-train-car", text_key: "vehicle.title", action: "/vehicles" },
         { icon: "mdi-text-box-check-outline", text_key: "reservation.title", action: "/reservations" },
+        { icon: "mdi-map-marker-path", text_key: "carshare.title", action: "/carshares" },
       ],
     };
   },
