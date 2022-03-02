@@ -11,6 +11,8 @@
           <v-toolbar-title>{{ $t("vehicle.table-title") }}</v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
+
+          <!-- start popup edit entry -->
           <v-dialog v-model="dialog" max-width="500px">
             <v-card>
               <v-card-title>
@@ -73,6 +75,9 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
+          <!-- end popup edit entry-->
+
+          <!-- start popup delete -->
           <v-dialog v-model="dialogDelete" max-width="500px">
             <v-card>
               <v-card-title wrap class="text-h5">{{
@@ -90,6 +95,118 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
+          <!-- end popup delete -->
+
+          <!-- start popup add entry -->
+          <v-dialog v-model="dialogAdd" max-width="600px">
+            <v-card>
+              <v-card-title>
+                <span class="text-h5">{{ $t("vehicle.form-title") }}</span>
+              </v-card-title>
+
+              <v-card-text>
+                <v-container>
+                  <v-form ref="form" v-model="valid" lazy-validation>
+                    <v-row>
+                      <v-col cols="12" sm="6" md="4">
+                        <v-text-field
+                          v-model="numberPlate"
+                          :counter="10"
+                          :rules="rules.numberPlate"
+                          label="numberPlate"
+                        ></v-text-field>
+                      </v-col>
+                      <v-col cols="12" sm="6" md="4">
+                        <v-text-field
+                          v-model="brand"
+                          :rules="rules.brand"
+                          label="Brand"
+                        ></v-text-field>
+                      </v-col>
+                      <v-col cols="12" sm="6" md="4">
+                        <v-text-field
+                          v-model="carModel"
+                          :rules="rules.carModel"
+                          label="Model"
+                        ></v-text-field>
+                      </v-col>
+
+                      <v-col cols="12" sm="6" md="6">
+                        <v-select
+                          v-model="select"
+                          :items="selectCat"
+                          :rules="rules.category"
+                          label="Category"
+                        ></v-select>
+                      </v-col>
+
+                      <v-col cols="12" sm="6" md="6">
+                        <v-text-field
+                          v-model="nbSeats"
+                          :rules="rules.seats"
+                          label="Seats"
+                        ></v-text-field>
+                      </v-col>
+                      <v-row class="radioSelect">
+                        <v-radio-group row v-model="carStatus" mandatory>
+                          <v-col cols="12" sm="12" md="4">
+                            <v-radio label="IN_SERVICE" value="IN_SERVICE">
+                            </v-radio>
+                          </v-col>
+                          <v-col cols="12" sm="12" md="4">
+                            <v-radio
+                              label="MAINTENANCE"
+                              value="MAINTENANCE"
+                            ></v-radio>
+                          </v-col>
+                          <v-col cols="12" sm="12" md="4">
+                            <v-radio
+                              label="OUT_OF_SERVICE"
+                              value="OUT_OF_SERVICE"
+                            ></v-radio>
+                          </v-col>
+                        </v-radio-group>
+                      </v-row>
+
+                      <v-col cols="12" sm="12" md="12">
+                        <v-row align="center">
+                          <v-checkbox
+                            v-model="enabled"
+                            hide-details
+                            class="shrink mr-2 mt-0"
+                          ></v-checkbox>
+                          <v-text-field
+                            v-model="photoUrl"
+                            :disabled="!enabled"
+                            label="Photo link"
+                          ></v-text-field>
+                        </v-row>
+                      </v-col>
+                    </v-row>
+                  </v-form>
+                </v-container>
+              </v-card-text>
+
+              <v-card-actions>
+                <v-btn-toggle group>
+                  <v-btn color="error darken-3" text @click="closeAdd">
+                    {{ $t("btn.cancel") }}
+                  </v-btn>
+
+                  <v-btn
+                    :disabled="!valid"
+                    color="success darken-3"
+                    text
+                    class="mr-4"
+                    @click="validate"
+                  >
+                    {{ $t("btn.submit") }}
+                  </v-btn>
+                </v-btn-toggle>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+          <!-- end popup add entry-->
         </v-toolbar>
       </template>
       <template v-slot:item.actions="{ item }">
@@ -111,6 +228,9 @@
         </v-btn>
       </template>
     </v-data-table>
+    <v-btn @click="addItem" fixed left small color="success darken-1">{{
+      $t("btn.add")
+    }}</v-btn>
   </div>
 </template>
 
@@ -122,8 +242,10 @@ export default {
   data() {
     return {
       vehicles: this.getVehicles(),
+      enabled: false,
       currentItem: {},
       dialog: false,
+      dialogAdd: false,
       dialogDelete: false,
       defaultItem: {
         numberPlate: "",
@@ -169,6 +291,45 @@ export default {
           sortable: false,
         },
       ],
+      newItem: {
+        numberPlate: "",
+        brand: "",
+        model: "",
+        category: "",
+        nbSeats: 0,
+        status: "",
+        photoUrl: "",
+        reservations: [],
+      },
+      numberPlate: "",
+      brand: "",
+      carModel: "",
+      nbSeats: 0,
+      photoUrl: "",
+      reservations: [],
+      carStatus: ["IN_SERVICE", "MAINTENANCE", "OUT_OF_SERVICE"],
+      selectCat: [
+        "MICRO",
+        "HATCHBACK",
+        "UNIVERSAL",
+        "COMPACT",
+        "S_SEDAN",
+        "M_SEDAN",
+        "L_SEDAN",
+        "SUV_4X4_PICKUP",
+      ],
+      select: null,
+      valid: true,
+      rules: {
+        numberPlate: [
+          (v) => !!v || "The number plate is required",
+          (v) => (v && v.length <= 9) || "Name must be less than 9 characters",
+        ],
+        brand: [(v) => !!v || "The brand is required"],
+        carModel: [(v) => !!v || "The model is required"],
+        seats: [(v) => !!v || "Please add the number of seats"],
+        category: [(v) => !!v || "The category is required"],
+      },
     };
   },
   methods: {
@@ -203,6 +364,10 @@ export default {
         )
         .catch((errorgeneral) => console.log(errorgeneral));
     },
+    addItem() {
+      console.log("addItem : ");
+      this.dialogAdd = true;
+    },
     editItem(item) {
       console.log("item to edit : " + item.id);
       this.editedIndex = this.vehicles.indexOf(item);
@@ -231,6 +396,7 @@ export default {
     deleteRecord() {
       VehicleApi.delete(this.currentItem.id);
       console.log("id supprimé : " + this.currentItem.id);
+      this.refresh();
       this.currentItem = {};
     },
     close() {
@@ -240,7 +406,9 @@ export default {
         this.editedIndex = -1;
       });
     },
-
+    closeAdd() {
+      this.dialogAdd = false;
+    },
     closeDelete() {
       this.dialogDelete = false;
       this.$nextTick(() => {
@@ -262,6 +430,27 @@ export default {
       }
       this.close();
     },
+    validate() {
+      console.log("submit");
+      let v = Object.assign(
+        {},
+        {
+          numberPlate: this.numberPlate,
+          brand: this.brand,
+          model: this.carModel,
+          category: this.select,
+          nbSeats: this.nbSeats,
+          status: this.carStatus,
+          photoUrl: this.photoUrl,
+          reservations: this.reservations,
+        }
+      );
+      console.log(v);
+      this.$refs.form.validate();
+      this.vehicles.push(v);
+      VehicleApi.add(v);
+      this.closeAdd();
+    },
   },
   watch: {
     dialog(val) {
@@ -274,4 +463,21 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.v-data-table {
+  margin-bottom: 1rem;
+}
+a:link,
+a:visited {
+  color: white;
+  text-decoration: none;
+}
+.v-card__actions {
+  display: flex;
+  justify-content: end;
+}
+.radioSelect {
+  display: flex;
+  justify-content: center;
+}
+</style>

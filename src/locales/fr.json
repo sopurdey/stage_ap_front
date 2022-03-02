@@ -9,10 +9,13 @@
     "delete": "Supprimer",
     "edit": "Modifier",
     "refresh": "Rafraîchir",
+    "reset": "Effacer",
     "save": "Enregistrer",
+    "submit": "Envoyer",
     "ok": "Ok"
   },
   "form": {
+    "add-entry": "Ajouter une entrée",
     "confirm-del": "Voulez-vous vraiment supprimer cette entrée ?"
   },
   "label": {
@@ -41,6 +44,11 @@
     "withDriver": "Avec conducteur",
     "user": "Réservé par",
     "vehicle": "Véhicule"
+  },
+  "status": {
+    "IN_SERVICE": "En service",
+    "MAINTENANCE": "En réparation",
+    "OUT_OF_SERVICE": "Hors service"
   },
   "vehicle": {
     "title": "Véhicules",

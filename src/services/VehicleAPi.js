@@ -15,8 +15,8 @@ export default class VehicleApi {
     return axios.delete(url + `/${id}`);
   }
 
-  static add(service) {
-    return axios.post(url + service);
+  static add(vehicle) {
+    return axios.post(url, vehicle);
   }
 
   static update(id, service) {

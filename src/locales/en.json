@@ -9,10 +9,13 @@
     "delete": "Delete",
     "edit": "Edit",
     "refresh": "Refresh",
+    "reset": "Reset",
     "save": "Save",
+    "submit": "Submit",
     "ok": "Ok"
   },
   "form": {
+    "add-entry": "Add an entry",
     "confirm-del": "Are you sure you want to delete this item?"
   },
   "label": {
@@ -41,6 +44,11 @@
     "withDriver": "With Driver",
     "user": "Reserved by",
     "vehicle": "Vehicle"
+  },
+  "status": {
+    "IN_SERVICE": "In service",
+    "MAINTENANCE": "Maintenance",
+    "OUT_OF_SERVICE": "Out of service"
   },
   "vehicle": {
     "title": "Vehicles",
