@@ -12,11 +12,11 @@
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
 
-          <!-- start popup edit entry -->
+          <!-- start modal edit entry -->
           <v-dialog v-model="dialog" max-width="500px">
             <v-card>
               <v-card-title>
-                <span class="text-h5">{{ $t("vehicle.form-title") }}</span>
+                <span wrap class="text-h5">{{ $t("vehicle.form-title") }}</span>
               </v-card-title>
 
               <v-card-text>
@@ -75,10 +75,10 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
-          <!-- end popup edit entry-->
+          <!-- end modal edit entry-->
 
-          <!-- start popup delete -->
-          <v-dialog v-model="dialogDelete" max-width="500px">
+          <!-- start modal delete -->
+          <v-dialog v-model="dialogDelete" max-width="550px">
             <v-card>
               <v-card-title wrap class="text-h5">{{
                 $t("form.confirm-del")
@@ -95,13 +95,13 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
-          <!-- end popup delete -->
+          <!-- end modal delete -->
 
-          <!-- start popup add entry -->
+          <!-- start modal add entry -->
           <v-dialog v-model="dialogAdd" max-width="600px">
             <v-card>
               <v-card-title>
-                <span class="text-h5">{{ $t("vehicle.form-title") }}</span>
+                <span wrap class="text-h5">{{ $t("form.add-entry") }}</span>
               </v-card-title>
 
               <v-card-text>
@@ -206,7 +206,7 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
-          <!-- end popup add entry-->
+          <!-- end modal add entry-->
         </v-toolbar>
       </template>
       <template v-slot:item.actions="{ item }">
@@ -332,6 +332,9 @@ export default {
       },
     };
   },
+  mounted() {
+    this.getVehicles();
+  },
   methods: {
     getVehicles() {
       let vehicles = [];
@@ -354,15 +357,7 @@ export default {
       });
     },
     refresh() {
-      VehicleApi.getAll()
-        .then(
-          (response) => {
-            this.vehicles = response.data;
-          },
-          (errorlocale) => console.log(errorlocale),
-          () => console.log("Finally")
-        )
-        .catch((errorgeneral) => console.log(errorgeneral));
+      this.getVehicles();
     },
     addItem() {
       console.log("addItem : ");
@@ -392,12 +387,11 @@ export default {
       this.deleteRecord();
       this.closeDelete();
     },
-
     deleteRecord() {
       VehicleApi.delete(this.currentItem.id);
       console.log("id supprimé : " + this.currentItem.id);
-      this.refresh();
       this.currentItem = {};
+      this.refresh();
     },
     close() {
       this.dialog = false;
@@ -416,7 +410,6 @@ export default {
         this.editedIndex = -1;
       });
     },
-
     save() {
       if (this.editedIndex > -1) {
         Object.assign(this.vehicles[this.editedIndex], this.editedItem);

@@ -15,11 +15,11 @@ export default class ReservationApi {
     return axios.delete(url + `/${id}`);
   }
 
-  static add(service) {
-    return axios.post(url + service);
+  static add(reservation) {
+    return axios.post(url, reservation);
   }
 
-  static update(id, service) {
-    return axios.put(url + `/${id}`, service);
+  static update(id, reservation) {
+    return axios.put(url + `/${id}`, reservation);
   }
 }

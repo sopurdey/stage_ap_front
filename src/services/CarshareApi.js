@@ -15,11 +15,11 @@ export default class CarshareApi {
     return axios.delete(url + `/${id}`);
   }
 
-  static add(service) {
-    return axios.post(url + service);
+  static add(carshare) {
+    return axios.post(url, carshare);
   }
 
-  static update(id, service) {
-    return axios.put(url + `/${id}`, service);
+  static update(id, carshare) {
+    return axios.put(url + `/${id}`, carshare);
   }
 }

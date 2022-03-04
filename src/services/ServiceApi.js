@@ -16,7 +16,7 @@ export default class ServiceApi {
   }
 
   static add(service) {
-    return axios.post(url + service);
+    return axios.post(url, service);
   }
 
   static update(id, service) {

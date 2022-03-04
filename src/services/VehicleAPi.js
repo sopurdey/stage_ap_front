@@ -19,7 +19,7 @@ export default class VehicleApi {
     return axios.post(url, vehicle);
   }
 
-  static update(id, service) {
-    return axios.put(url + `/${id}`, service);
+  static update(id, vehicle) {
+    return axios.put(url + `/${id}`, vehicle);
   }
 }
