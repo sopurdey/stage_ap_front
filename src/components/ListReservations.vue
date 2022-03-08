@@ -87,10 +87,18 @@
                       ></v-checkbox>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
+                      <!-- select user -->
+                      <v-select
+                        v-model="select"
+                        :items="editedItem.userList"
+                        label="User"
+                      ></v-select>
+                      <!--
                       <v-text-field
                         v-model="editedItem.user.id"
                         label="User"
                       ></v-text-field>
+                      -->
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
@@ -282,7 +290,8 @@
 
 <script>
 import ReservationApi from "../services/ReservationApi";
-import VehicleApi from "../services/VehicleAPi";
+//import VehicleApi from "../services/VehicleApi";
+//import UserApi from "../services/UserApi";
 
 export default {
   name: "ListReservations",
@@ -345,7 +354,7 @@ export default {
         startTime: [
           (v) => !!v || "The startTime is required",
           (v) =>
-            v >= this.endTime || "The startTime cannot be after the endTime",
+            v > this.endTime || "The startTime cannot be after the endTime",
         ],
         endTime: [
           (v) => !!v || "The endTime is required",
@@ -360,7 +369,7 @@ export default {
       valid: true,
       userId: [],
       vehicleId: [],
-      userList: [],
+      userList: this.$store.getters.allUsers,
       vehicleList: this.$store.getters.allVehicles,
       startTime: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
         .toISOString()
@@ -512,6 +521,7 @@ export default {
       ReservationApi.add(v);
       this.closeAdd();
     },
+    /*
     getVehicleList() {
       VehicleApi.getAll()
         .then(
@@ -523,6 +533,18 @@ export default {
         )
         .catch((errorgeneral) => console.log(errorgeneral));
     },
+    getUserList() {
+      UserApi.getAll()
+        .then(
+          (response) => {
+            return (this.vehicleList = response.data);
+          },
+          (errorlocale) => console.log(errorlocale),
+          () => console.log("Finally")
+        )
+        .catch((errorgeneral) => console.log(errorgeneral));
+    },
+    */
     formatDate(date) {
       if (!date) return null;
 
